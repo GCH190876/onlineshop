@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Product List {% endblock %}
+
+{% block body %}
+<style>
+    body {
+        width: 80%;
+        margin: 20px auto;
+    }
+</style>
+ 
+    <div class="container">
+        {% for flash in app.flashes("Info") %}
+            <p class="alert alert-success"> {{ flash }}
+        {% endfor %}
+        {% for flash in app.flashes("Error") %}
+            <p class="alert alert-danger"> {{ flash }}
+        {% endfor %}
+    </div>
+    <a class="btn btn-outline-primary" href="{{ path ('product_create') }}">Create New Product</a>
+    <br><br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td scope="row"> {{ product.id }} </td>
+                <td scope="row"> {{ product.name }} </td>
+                <td>
+                    <a class="btn btn-info" href="{{ path ('product_detail', {'id' : product.id} )}}">Detail</a>   
+                    <a class="btn btn-info" href="{{ path ('product_update', {'id' : product.id} )}}">Update</a>
+                    <a class="btn btn-warning" href="{{ path ('product_delete', {'id' : product.id} )}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
